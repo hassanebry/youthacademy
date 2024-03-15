@@ -13,3 +13,13 @@ const checkStatus = response => {
 export const getAllJoueurs = () =>
     fetch("api/v1/joueurs")
         .then(checkStatus);
+
+export const addNewJoueur = joueur =>
+    fetch("api/v1/joueurs", {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify(joueur)
+        }
+    );

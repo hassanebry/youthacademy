@@ -4,7 +4,7 @@ import {
     Layout,
     Menu,
     Breadcrumb,
-    Table, Spin, Empty
+    Table, Spin, Empty, Button, Badge
 } from 'antd';
 import {
     DesktopOutlined,
@@ -12,8 +12,9 @@ import {
     FileOutlined,
     TeamOutlined,
     UserOutlined,
-    LoadingOutlined
+    LoadingOutlined, PlusOutlined
 } from '@ant-design/icons';
+import JoueurDrawerForm from "./JoueurDrawerForm";
 
 import './App.css';
 
@@ -86,6 +87,11 @@ const columns = [
         dataIndex: 'dateOfSignature',
         key: 'dateOfSignature',
     },
+    {
+        title: 'Actions',
+        dataIndex: 'actions',
+        key: 'actions',
+    },
 ];
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
@@ -94,6 +100,7 @@ function App() {
     const [joueurs, setJoueurs] = useState([]);
     const [collapsed, setCollapsed] = useState(false);
     const [fetching, setFetching] = useState(true);
+    const [showDrawer, setShowDrawer] = useState(false);
 
     const fetchJoueurs = () =>
         getAllJoueurs()
@@ -116,14 +123,33 @@ function App() {
         if (joueurs.length <= 0) {
             return <Empty />;
         }
-        return <Table
-            dataSource={joueurs}
-            columns={columns}
-            bordered
-            title={() => 'joueurs'}
-            pagination={{ pageSize: 10 }}
-            scroll={{ y: 350 }}
-        />;
+        return <>
+            <JoueurDrawerForm
+                showDrawer={showDrawer}
+                setShowDrawer={setShowDrawer}
+                fetchJoueurs={fetchJoueurs}
+            />
+            <Table
+                dataSource={joueurs}
+                columns={columns}
+                bordered
+                title={() =>
+                    <>
+                        <Tag>Nombre de joueurs</Tag>
+                        <Badge count={joueurs.length} className="site-badge-count-4"/>
+                        <br/><br/>
+                        <Button
+                            onClick={() => setShowDrawer(!showDrawer)}
+                            type="primary" shape="round" icon={<PlusOutlined/>} size="small">
+                            Ajouter un nouveau joueur
+                        </Button>
+                    </>
+                }
+                pagination={{pageSize: 20}}
+                scroll={{y: 350}}
+                rowKey={joueur => joueur.id}
+            />
+        </>
     }
 
     return <Layout style={{minHeight: '100vh'}}>

@@ -29,4 +29,6 @@ public class JoueurController {
         joueurService.addJoueur(joueurDto);
         return ResponseEntity.created(URI.create("api/v1/joueurs/" + UUID.randomUUID())).body("joueur ajouté avec succès");
     }
+
+
 }

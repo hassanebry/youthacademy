@@ -56,5 +56,7 @@ public class Joueur {
         this.ligue = ligue;
         this.lastClub = lastClub;
         this.statut = statut;
+        this.dateOfSignature = LocalDate.now();
+        this.createdAt = LocalDateTime.now();
     }
 }
