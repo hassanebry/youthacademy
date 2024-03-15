@@ -4,7 +4,7 @@ import {
     Layout,
     Menu,
     Breadcrumb,
-    Table, Spin, Empty, Button, Badge
+    Table, Spin, Empty, Button, Badge, Tag
 } from 'antd';
 import {
     DesktopOutlined,
