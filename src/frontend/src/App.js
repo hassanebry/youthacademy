@@ -121,8 +121,8 @@ function App() {
             columns={columns}
             bordered
             title={() => 'joueurs'}
-            pagination={{ pageSize: 50 }}
-            scroll={{ y: 240 }}
+            pagination={{ pageSize: 10 }}
+            scroll={{ y: 350 }}
         />;
     }
 
@@ -162,7 +162,7 @@ function App() {
                     {renderJoueurs()}
                 </div>
             </Content>
-            <Footer style={{textAlign: 'center'}}>By Amigoscode</Footer>
+            <Footer style={{textAlign: 'center'}}>By HassaneBry For Testing Purpose</Footer>
         </Layout>
     </Layout>
 }
