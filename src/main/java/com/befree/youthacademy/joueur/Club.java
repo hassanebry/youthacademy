@@ -1,5 +1,5 @@
 package com.befree.youthacademy.joueur;
 
 public enum Club {
-    HOROYA
+    HOROYA, AFIA, ASK, ATHLETICO
 }
