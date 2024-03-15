@@ -17,4 +17,8 @@ public class JoueurService {
         return joueurRepo.findAll();
     }
 
+    public void addJoueur(JoueurDto joueurDto) {
+        Joueur joueur = new Joueur(joueurDto.lastName, joueurDto.firstName, joueurDto.dob, joueurDto.pob, joueurDto.parents, joueurDto.nationality, joueurDto.club, joueurDto.ligue, joueurDto.lastClub, joueurDto.statut);
+        joueurRepo.save(joueur);
+    }
 }
