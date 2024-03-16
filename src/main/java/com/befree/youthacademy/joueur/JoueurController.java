@@ -1,6 +1,7 @@
 package com.befree.youthacademy.joueur;
 
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ public class JoueurController {
     }
 
     @PostMapping
-    public ResponseEntity<String> addJoueur(@RequestBody JoueurDto joueurDto){
+    public ResponseEntity<String> addJoueur(@Valid @RequestBody JoueurDto joueurDto){
         joueurService.addJoueur(joueurDto);
         return ResponseEntity.created(URI.create("api/v1/joueurs/" + UUID.randomUUID())).body("joueur ajouté avec succès");
     }
