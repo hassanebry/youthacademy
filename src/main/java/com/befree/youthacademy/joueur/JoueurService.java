@@ -21,4 +21,8 @@ public class JoueurService {
         Joueur joueur = new Joueur(joueurDto.lastName, joueurDto.firstName, joueurDto.dob, joueurDto.pob, joueurDto.parents, joueurDto.nationality, joueurDto.club, joueurDto.ligue, joueurDto.lastClub, joueurDto.statut);
         joueurRepo.save(joueur);
     }
+
+    public void deleteJoueur(Long joueurId) {
+        joueurRepo.deleteById(joueurId);
+    }
 }

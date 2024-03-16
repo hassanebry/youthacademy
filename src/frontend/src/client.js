@@ -23,3 +23,8 @@ export const addNewJoueur = joueur =>
             body: JSON.stringify(joueur)
         }
     );
+
+export const deleteJoueur = joueurId =>
+    fetch(`api/v1/joueurs/${joueurId}`, {
+        method: 'DELETE'
+    }).then(checkStatus);
