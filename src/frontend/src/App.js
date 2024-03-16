@@ -28,32 +28,32 @@ const columns = [
         key: 'id',
     },
     {
-        title: 'Last Name',
+        title: 'Nom',
         dataIndex: 'lastName',
         key: 'lastName',
     },
     {
-        title: 'First Name',
+        title: 'Prénom',
         dataIndex: 'firstName',
         key: 'firstName',
     },
     {
-        title: 'Date of Birth',
+        title: 'Date de Naissance',
         dataIndex: 'dob',
         key: 'dob',
     },
     {
-        title: 'Place of Birth',
+        title: 'Lieu de Naissance',
         dataIndex: 'pob',
         key: 'pob',
     },
     {
-        title: 'Parents',
+        title: 'Filiation',
         dataIndex: 'parents',
         key: 'parents',
     },
     {
-        title: 'Nationality',
+        title: 'Nationalité',
         dataIndex: 'nationality',
         key: 'nationality',
     },
@@ -68,7 +68,7 @@ const columns = [
         key: 'ligue',
     },
     {
-        title: 'Last Club',
+        title: 'Dernier Club',
         dataIndex: 'lastClub',
         key: 'lastClub',
     },
@@ -78,12 +78,7 @@ const columns = [
         key: 'statut',
     },
     {
-        title: 'Date Of Signature',
-        dataIndex: 'dateOfSignature',
-        key: 'dateOfSignature',
-    },
-    {
-        title: 'Date Of Signature',
+        title: 'Signature',
         dataIndex: 'dateOfSignature',
         key: 'dateOfSignature',
     },
