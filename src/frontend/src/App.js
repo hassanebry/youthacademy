@@ -1,10 +1,10 @@
 import {useState, useEffect} from 'react'
-import {getAllJoueurs} from "./client";
+import {deleteJoueur, getAllJoueurs} from "./client";
 import {
     Layout,
     Menu,
     Breadcrumb,
-    Table, Spin, Empty, Button, Badge, Tag
+    Table, Spin, Empty, Button, Badge, Tag, Radio, Popconfirm
 } from 'antd';
 import {
     DesktopOutlined,
@@ -18,10 +18,19 @@ import JoueurDrawerForm from "./JoueurDrawerForm";
 
 import './App.css';
 
+import {errorNotification, successNotification} from "./Notification";
+
 const {Header, Content, Footer, Sider} = Layout;
 const {SubMenu} = Menu;
 
-const columns = [
+const removeJoueur = (joueurId, callback) => {
+    deleteJoueur(joueurId).then(() => {
+        successNotification( "Joueur supprimé", `Le joueur N° ${joueurId} a été supprimé`);
+        callback();
+    });
+}
+
+const columns = fetchJoueurs => [
     {
         title: 'Id',
         dataIndex: 'id',
@@ -84,9 +93,20 @@ const columns = [
     },
     {
         title: 'Actions',
-        dataIndex: 'actions',
         key: 'actions',
-    },
+        render: (text, joueur) =>
+            <Radio.Group>
+                <Popconfirm
+                    placement='topRight'
+                    title={`Are you sure to delete ${joueur.id}`}
+                    onConfirm={() => removeJoueur(joueur.id, fetchJoueurs)}
+                    okText='Yes'
+                    cancelText='No'>
+                    <Radio.Button value="small">Supp</Radio.Button>
+                </Popconfirm>
+                <Radio.Button value="small">Edit</Radio.Button>
+            </Radio.Group>
+    }
 ];
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
@@ -126,7 +146,7 @@ function App() {
             />
             <Table
                 dataSource={joueurs}
-                columns={columns}
+                columns={columns(fetchJoueurs)}
                 bordered
                 title={() =>
                     <>

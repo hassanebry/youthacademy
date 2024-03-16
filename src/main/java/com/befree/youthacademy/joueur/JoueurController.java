@@ -30,5 +30,9 @@ public class JoueurController {
         return ResponseEntity.created(URI.create("api/v1/joueurs/" + UUID.randomUUID())).body("joueur ajouté avec succès");
     }
 
+    @DeleteMapping(path = "{joueurId}")
+    public void deleteJoueur(@PathVariable("joueurId") Long joueurId) {
+        joueurService.deleteJoueur(joueurId);
+    }
 
 }
