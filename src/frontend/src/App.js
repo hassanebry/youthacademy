@@ -4,7 +4,7 @@ import {
     Layout,
     Menu,
     Breadcrumb,
-    Table, Spin, Empty
+    Table, Spin, Empty, Button, Badge, Tag
 } from 'antd';
 import {
     DesktopOutlined,
@@ -12,8 +12,9 @@ import {
     FileOutlined,
     TeamOutlined,
     UserOutlined,
-    LoadingOutlined
+    LoadingOutlined, PlusOutlined
 } from '@ant-design/icons';
+import JoueurDrawerForm from "./JoueurDrawerForm";
 
 import './App.css';
 
@@ -27,32 +28,32 @@ const columns = [
         key: 'id',
     },
     {
-        title: 'Last Name',
+        title: 'Nom',
         dataIndex: 'lastName',
         key: 'lastName',
     },
     {
-        title: 'First Name',
+        title: 'Prénom',
         dataIndex: 'firstName',
         key: 'firstName',
     },
     {
-        title: 'Date of Birth',
+        title: 'Date de Naissance',
         dataIndex: 'dob',
         key: 'dob',
     },
     {
-        title: 'Place of Birth',
+        title: 'Lieu de Naissance',
         dataIndex: 'pob',
         key: 'pob',
     },
     {
-        title: 'Parents',
+        title: 'Filiation',
         dataIndex: 'parents',
         key: 'parents',
     },
     {
-        title: 'Nationality',
+        title: 'Nationalité',
         dataIndex: 'nationality',
         key: 'nationality',
     },
@@ -67,7 +68,7 @@ const columns = [
         key: 'ligue',
     },
     {
-        title: 'Last Club',
+        title: 'Dernier Club',
         dataIndex: 'lastClub',
         key: 'lastClub',
     },
@@ -77,14 +78,14 @@ const columns = [
         key: 'statut',
     },
     {
-        title: 'Date Of Signature',
+        title: 'Signature',
         dataIndex: 'dateOfSignature',
         key: 'dateOfSignature',
     },
     {
-        title: 'Date Of Signature',
-        dataIndex: 'dateOfSignature',
-        key: 'dateOfSignature',
+        title: 'Actions',
+        dataIndex: 'actions',
+        key: 'actions',
     },
 ];
 
@@ -94,6 +95,7 @@ function App() {
     const [joueurs, setJoueurs] = useState([]);
     const [collapsed, setCollapsed] = useState(false);
     const [fetching, setFetching] = useState(true);
+    const [showDrawer, setShowDrawer] = useState(false);
 
     const fetchJoueurs = () =>
         getAllJoueurs()
@@ -116,14 +118,33 @@ function App() {
         if (joueurs.length <= 0) {
             return <Empty />;
         }
-        return <Table
-            dataSource={joueurs}
-            columns={columns}
-            bordered
-            title={() => 'joueurs'}
-            pagination={{ pageSize: 10 }}
-            scroll={{ y: 350 }}
-        />;
+        return <>
+            <JoueurDrawerForm
+                showDrawer={showDrawer}
+                setShowDrawer={setShowDrawer}
+                fetchJoueurs={fetchJoueurs}
+            />
+            <Table
+                dataSource={joueurs}
+                columns={columns}
+                bordered
+                title={() =>
+                    <>
+                        <Tag>Nombre de joueurs</Tag>
+                        <Badge count={joueurs.length} className="site-badge-count-4"/>
+                        <br/><br/>
+                        <Button
+                            onClick={() => setShowDrawer(!showDrawer)}
+                            type="primary" shape="round" icon={<PlusOutlined/>} size="small">
+                            Ajouter un nouveau joueur
+                        </Button>
+                    </>
+                }
+                pagination={{pageSize: 20}}
+                scroll={{y: 350}}
+                rowKey={joueur => joueur.id}
+            />
+        </>
     }
 
     return <Layout style={{minHeight: '100vh'}}>
