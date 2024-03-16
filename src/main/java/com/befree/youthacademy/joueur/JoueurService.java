@@ -1,10 +1,12 @@
 package com.befree.youthacademy.joueur;
 
 
+import com.befree.youthacademy.joueur.exception.JoueurNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -23,6 +25,10 @@ public class JoueurService {
     }
 
     public void deleteJoueur(Long joueurId) {
+        Optional<Joueur> joueurOptional = joueurRepo.findById(joueurId);
+        if (joueurOptional.isEmpty()){
+            throw new JoueurNotFoundException("Le joueur est absent du système");
+        }
         joueurRepo.deleteById(joueurId);
     }
 }

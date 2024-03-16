@@ -21,11 +21,19 @@ function JoueurDrawerForm({showDrawer, setShowDrawer, fetchJoueurs}) {
                 onCLose();
                 successNotification(
                     "joueur ajouté avec succès",
-                    `${joueur.name} a été ajouté au système`
+                    `${joueur.lastName} a été ajouté au système`
                 )
                 fetchJoueurs();
             }).catch(err => {
-            console.log(err)
+            console.log(err);
+            err.response.json().then(res => {
+                console.log(res);
+                errorNotification(
+                    "There was an issue",
+                    `${res.message} [${res.status}] [${res.error}]`,
+                    "bottomLeft"
+                )
+            });
         }).finally(() => {
             setSubmitting(false);
         })

@@ -1,6 +1,8 @@
 package com.befree.youthacademy.joueur;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -27,22 +29,38 @@ public class Joueur {
             generator = "joueur_sequence",
             strategy = GenerationType.SEQUENCE)
     private Long id;
-
+    @NotBlank
     private String lastName;
+
+    @NotBlank
     private String firstName;
+
+    @NotNull
     private LocalDate dob;
+
+    @NotBlank
     private String pob;
+
+    @NotBlank
     private String parents;
+
+    @NotBlank
     private String nationality;
+
+    @NotBlank
     private String club;
 
+    @NotBlank
     private String ligue;
 
+    @NotBlank
     private String lastClub;
 
+    @NotBlank
     private String statut;
 
     private LocalDate dateOfSignature;
+
     private LocalDateTime createdAt;
 
     public Joueur(String lastName, String firstName, LocalDate dob, String pob, String parents, String nationality, String club, String ligue, String lastClub, String statut) {

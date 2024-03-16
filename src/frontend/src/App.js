@@ -27,7 +27,15 @@ const removeJoueur = (joueurId, callback) => {
     deleteJoueur(joueurId).then(() => {
         successNotification( "Joueur supprimé", `Le joueur N° ${joueurId} a été supprimé`);
         callback();
-    });
+    }).catch(err => {
+        err.response.json().then(res => {
+            console.log(res);
+            errorNotification(
+                "Oups il y'a eu un souci",
+                `${res.message} [${res.status}] [${res.error}]`
+            )
+        });
+    })
 }
 
 const columns = fetchJoueurs => [
@@ -124,7 +132,13 @@ function App() {
                 console.log(data);
                 setJoueurs(data);
                 setFetching(false);
-            })
+            }).catch(err => {
+                console.log(err.response)
+                err.response.json().then(res => {
+                    console.log(res);
+                    errorNotification("Oups il y'a eu un souci !", `${res.message} [Code Erreur: ${res.status}]`)
+                });
+        }).finally(() => setFetching(false))
 
     useEffect(() => {
         console.log("component is mounted");
@@ -136,7 +150,19 @@ function App() {
             return <Spin indicator={antIcon} />
         }
         if (joueurs.length <= 0) {
-            return <Empty />;
+            return <>
+                <Button
+                    onClick={() => setShowDrawer(!showDrawer)}
+                    type="primary" shape="round" icon={<PlusOutlined/>} size="small">
+                    Ajouter un nouveau joueur
+                </Button>
+                <JoueurDrawerForm
+                    showDrawer={showDrawer}
+                    setShowDrawer={setShowDrawer}
+                    fetchJoueurs={fetchJoueurs}
+                />
+                <Empty />
+            </>
         }
         return <>
             <JoueurDrawerForm
